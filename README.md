@@ -4,4 +4,4 @@ This is our second year participating in the FIRST Robotics competition
 Coded in Java using VSCode
 
 #Memes
-![This is Fine[(/Memes/DeanFine.png)
+![This is Fine](/Memes/DeanFine.png)
