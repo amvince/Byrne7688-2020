@@ -46,6 +46,10 @@ public class ColourWheel extends SubsystemBase {
     spinner.set(0.3);
   }
 
+  public Color detectedColor() {
+    return this.detectedColor;
+  }
+
   public void cclockwise() {
     spinner.set(-0.3);
   }
@@ -53,9 +57,15 @@ public class ColourWheel extends SubsystemBase {
   public void stop() {
     spinner.set(0);
   }
+  public double confidence() {
+    // ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    // detectedColor.confidence;
+    return 0.0;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    detectedColor = m_colorSensor.getColor();
+    this.detectedColor = m_colorSensor.getColor();
+    
   }
 }
