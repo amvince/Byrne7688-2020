@@ -3,5 +3,9 @@ This is our second year participating in the FIRST Robotics competition
 
 Coded in Java using VSCode
 
-#Memes
+### Resources
+Ri3D Colour Sensor Demo
+https://youtu.be/GhRelQl0Vok
+
+### Memes
 ![This is Fine](/Memes/DeanFine.png)
