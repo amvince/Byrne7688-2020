@@ -15,33 +15,51 @@ public class FindColour extends CommandBase {
   /**
    * Creates a new DisplayColor.
    */
-  private ColourWheel m_wheel;
-  private Color m_target, m_current, m_previous;
-  private boolean colorMatch;
+  private final ColourWheel m_wheel = new ColourWheel();
+  private Color m_target, m_current;
+  private String s_target, s_current;
+  private boolean foundColour;
+  private boolean byName;
 
-  public FindColour(ColourWheel wheel, Color target) {
+  public FindColour(Color target) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_wheel = wheel;
     m_target = target;
-    addRequirements(wheel);
+    byName = false;
   }
 
+  public FindColour(String target) {
+    s_target = target;
+    byName = true;
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_previous=m_wheel.detectedColor();
-    colorMatch = false;
+    if (byName) {
+      s_current = m_wheel.colourMatch();
+    } else {
+      m_current=m_wheel.detectedColor();
+    }
+    foundColour = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_current = m_wheel.detectedColor();
-    if (m_current == m_target) {  // Detecting EXACT match, not shifted match
-      colorMatch = true;
+    if (byName) {
+      s_current = m_wheel.colourMatch();
+      if (s_current == s_target) {
+        foundColour = true;
+      } else {
+        m_wheel.clockwise();
+      }
     } else {
-      m_wheel.clockwise();
-    }
+      m_current = m_wheel.detectedColor();
+      if (m_current == m_target) {  // Detecting EXACT match, not shifted match
+        foundColour = true;
+      } else {
+        m_wheel.clockwise();
+      }
+  } 
     // if current != target start spin the wheel.
     // Remember, there is a 90 degree phase shift
     // If target is reached, set a flag for the "isFinished"
@@ -55,7 +73,7 @@ public class FindColour extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (colorMatch) {
+    if (foundColour) {
       m_wheel.stop();
       return true;
     }

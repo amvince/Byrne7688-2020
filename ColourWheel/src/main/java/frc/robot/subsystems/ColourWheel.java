@@ -28,6 +28,10 @@ public class ColourWheel extends SubsystemBase {
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private Color detectedColor;
+<<<<<<< HEAD
+=======
+  
+>>>>>>> b901cc7b2dc32596ca601d4f8ebbfee24334400d
   private final ColorMatch m_colorMatcher = new ColorMatch();
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -68,6 +72,9 @@ public class ColourWheel extends SubsystemBase {
   public void stop() {
     spinner.set(0);
   }
+
+
+
   public double confidence() {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     return 0.0;
@@ -95,4 +102,22 @@ public class ColourWheel extends SubsystemBase {
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
   }
+
+public String colourMatch() {
+  String colorString;
+  Color detectedColor = m_colorSensor.getColor();
+  ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+  if (match.color == kBlueTarget) {
+    colorString = "Blue";
+  } else if (match.color == kRedTarget) {
+    colorString = "Red";
+  } else if (match.color == kGreenTarget) {
+    colorString = "Green";
+  } else if (match.color == kYellowTarget) {
+    colorString = "Yellow";
+  } else {
+    colorString = "Unknown";
+  }
+  return colorString;
+}
 }
