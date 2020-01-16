@@ -28,10 +28,7 @@ public class ColourWheel extends SubsystemBase {
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private Color detectedColor;
-<<<<<<< HEAD
-=======
   
->>>>>>> b901cc7b2dc32596ca601d4f8ebbfee24334400d
   private final ColorMatch m_colorMatcher = new ColorMatch();
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -73,11 +70,9 @@ public class ColourWheel extends SubsystemBase {
     spinner.set(0);
   }
 
-
-
   public double confidence() {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-    return 0.0;
+    return match.confidence;
   }
   @Override
   public void periodic() {
