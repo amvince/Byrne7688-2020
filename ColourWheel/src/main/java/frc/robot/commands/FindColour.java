@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColourWheel;
@@ -17,19 +18,22 @@ public class FindColour extends CommandBase {
    */
   private final ColourWheel m_wheel = new ColourWheel();
   private Color m_target, m_current;
-  private String s_target, s_current;
+  private String s_target="None", s_current;
   private boolean foundColour;
   private boolean byName;
 
-  public FindColour(Color target) {
+  /* public FindColour(Color target) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_target = target;
     byName = false;
-  }
+  }*/
 
   public FindColour(String target) {
     s_target = target;
     byName = true;
+    SmartDashboard.putString("Looking For:", s_target);
+    System.out.print("Looking For: ");
+    System.out.println(s_target);
   }
   // Called when the command is initially scheduled.
   @Override
@@ -47,6 +51,9 @@ public class FindColour extends CommandBase {
   public void execute() {
     if (byName) {
       s_current = m_wheel.colourMatch();
+      SmartDashboard.putString("Currently On:", s_current);
+      System.out.println("Looking...");
+      
       if (s_current == s_target) {
         foundColour = true;
       } else {
@@ -75,6 +82,8 @@ public class FindColour extends CommandBase {
   public boolean isFinished() {
     if (foundColour) {
       m_wheel.stop();
+      System.out.print("Found ");
+      System.out.println(s_target);
       return true;
     }
     return false;

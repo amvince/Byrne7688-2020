@@ -12,8 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -24,11 +22,12 @@ public class ColourWheel extends SubsystemBase {
   /**
    * Creates a new ColourWheel.
    */
-  private final WPI_TalonSRX spinner = new WPI_TalonSRX(Constants.CANSPIN);
+  // Disabled Motor FOR NOW
+  // private final WPI_TalonSRX spinner = new WPI_TalonSRX(Constants.CANSPIN);
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private Color detectedColor;
-  
+  public String motorState="Stopped";
   private final ColorMatch m_colorMatcher = new ColorMatch();
   private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
@@ -55,7 +54,8 @@ public class ColourWheel extends SubsystemBase {
   }
 
   public void clockwise() {
-    spinner.set(0.3);
+    // spinner.set(0.3);
+    motorState = "Clockwise";
   }
 
   public Color detectedColor() {
@@ -63,11 +63,13 @@ public class ColourWheel extends SubsystemBase {
   }
 
   public void cclockwise() {
-    spinner.set(-0.3);
+    //spinner.set(-0.3);
+    motorState = "CounterClockwise";
   }
 
   public void stop() {
-    spinner.set(0);
+    //spinner.set(0);
+    motorState = "Stopped";
   }
 
   public double confidence() {
@@ -96,6 +98,7 @@ public class ColourWheel extends SubsystemBase {
     SmartDashboard.putNumber("Blue", detectedColor.blue);
     SmartDashboard.putNumber("Confidence", match.confidence);
     SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putString("Spinner Motor", motorState);
   }
 
 public String colourMatch() {

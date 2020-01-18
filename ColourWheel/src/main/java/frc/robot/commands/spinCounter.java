@@ -37,6 +37,7 @@ public class spinCounter extends CommandBase {
     counter = 0;
     s_initColour = m_wheel.colourMatch();
     s_prevColour = s_initColour;
+    SmartDashboard.putString("Starting Colour", s_initColour);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

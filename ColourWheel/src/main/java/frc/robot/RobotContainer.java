@@ -8,9 +8,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DisplayColor;
+import frc.robot.commands.FindColour;
+import frc.robot.commands.spinCounter;
 import frc.robot.subsystems.ColourWheel;
 
 /**
@@ -22,16 +26,18 @@ import frc.robot.subsystems.ColourWheel;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ColourWheel m_colourWheel = new ColourWheel();
-
   private final DisplayColor m_autoCommand = new DisplayColor(m_colourWheel);
-
-
-
+  
+  // Joystick Control
+  Joystick joystick = new Joystick(Constants.OI_DRIVER_CONTROLLER);
+  
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    
     // Configure the button bindings
+
     configureButtonBindings();
   }
 
@@ -42,6 +48,17 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(joystick, Constants.OI_BUTTON_G)
+      .whenPressed(() -> new FindColour("Green"));
+    new JoystickButton(joystick, Constants.OI_BUTTON_Y)
+      .whenPressed(() -> new FindColour("Yellow"));
+    new JoystickButton(joystick, Constants.OI_BUTTON_B)
+      .whenPressed(() -> new FindColour("Blue"));
+    new JoystickButton(joystick, Constants.OI_BUTTON_R)
+      .whenPressed(() -> new FindColour("Red"));
+    new JoystickButton(joystick, Constants.OI_BUTTON_T)
+      .whenPressed(() -> new spinCounter());
+
   }
 
 

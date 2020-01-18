@@ -18,4 +18,15 @@ package frc.robot;
 public final class Constants {
 
     public static int CANSPIN = 0;
+
+      // Joystick Constants - XBox Style
+    public static final int OI_DRIVER_CONTROLLER = 0;
+    public static final int OI_LEFT_STICK_Y = 5;
+    public static final int OI_LEFT_STICK_X = 4;
+    public static final int OI_RIGHT_STICK_Y = 1;
+    public static final int OI_BUTTON_R = 5;
+    public static final int OI_BUTTON_G = 6;
+    public static final int OI_BUTTON_B = 3;
+    public static final int OI_BUTTON_Y = 4;
+    public static final int OI_BUTTON_T = 7;
 }
