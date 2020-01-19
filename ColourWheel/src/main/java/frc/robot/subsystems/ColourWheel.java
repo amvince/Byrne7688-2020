@@ -93,6 +93,7 @@ public class ColourWheel extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
+    
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);

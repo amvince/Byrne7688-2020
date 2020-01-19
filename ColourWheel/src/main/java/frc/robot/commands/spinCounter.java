@@ -16,15 +16,17 @@ public class spinCounter extends CommandBase {
   /**
    * Creates a new spinCounter.
    */
-  private final ColourWheel m_wheel = new ColourWheel();
+  private final ColourWheel m_wheel;
   // private Color initColour, prevColour;
   private String s_initColour, s_prevColour;
 
   
   private double counter;
 
-  public spinCounter() {
+  public spinCounter(ColourWheel wheel) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_wheel = wheel;
+    addRequirements(m_wheel);
   }
 
   // Called when the command is initially scheduled.

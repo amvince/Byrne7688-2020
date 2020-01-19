@@ -19,7 +19,7 @@ public class DisplayColor extends CommandBase {
   public DisplayColor(ColourWheel wheel) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_wheel = wheel;
-    addRequirements(wheel);
+    addRequirements(m_wheel);
   }
 
   // Called when the command is initially scheduled.

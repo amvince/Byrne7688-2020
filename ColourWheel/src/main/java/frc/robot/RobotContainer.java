@@ -48,16 +48,18 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(joystick, Constants.OI_BUTTON_G)
-      .whenPressed(() -> new FindColour("Green"));
-    new JoystickButton(joystick, Constants.OI_BUTTON_Y)
-      .whenPressed(() -> new FindColour("Yellow"));
-    new JoystickButton(joystick, Constants.OI_BUTTON_B)
-      .whenPressed(() -> new FindColour("Blue"));
-    new JoystickButton(joystick, Constants.OI_BUTTON_R)
-      .whenPressed(() -> new FindColour("Red"));
-    new JoystickButton(joystick, Constants.OI_BUTTON_T)
-      .whenPressed(() -> new spinCounter());
+
+    final JoystickButton greenButton = new JoystickButton(joystick, Constants.OI_BUTTON_G);     
+    final JoystickButton yellowButton = new JoystickButton(joystick, Constants.OI_BUTTON_Y);
+    final JoystickButton blueButton = new JoystickButton(joystick, Constants.OI_BUTTON_B);
+    final JoystickButton redButton = new JoystickButton(joystick, Constants.OI_BUTTON_R);
+    final JoystickButton triggerButton = new JoystickButton(joystick, Constants.OI_BUTTON_T);
+    
+    greenButton.whenPressed(new FindColour(m_colourWheel,"Green"));
+    yellowButton.whenPressed(new FindColour(m_colourWheel, "Yellow"));
+    blueButton.whenPressed(new FindColour(m_colourWheel, "Blue"));
+    redButton.whenPressed(new FindColour(m_colourWheel, "Red"));
+    triggerButton.whenPressed(new spinCounter(m_colourWheel));
 
   }
 
