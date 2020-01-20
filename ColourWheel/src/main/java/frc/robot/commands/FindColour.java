@@ -31,8 +31,7 @@ public class FindColour extends CommandBase {
   @Override
   public void initialize() {
       s_current = m_wheel.colourMatch();
-   
-    foundColour = false;
+      foundColour = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,6 +40,8 @@ public class FindColour extends CommandBase {
       s_current = m_wheel.colourMatch();
       SmartDashboard.putString("Currently On:", s_current);
       System.out.println("Looking...");
+      System.out.print("Currently On: ");
+      System.out.println(s_current);
       if (s_current == s_target) {
         foundColour = true;
       } else {
@@ -56,6 +57,7 @@ public class FindColour extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("Stopping Motor");
     m_wheel.stop();
   }
 

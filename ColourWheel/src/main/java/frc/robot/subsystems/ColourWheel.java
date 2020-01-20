@@ -33,6 +33,7 @@ public class ColourWheel extends SubsystemBase {
   private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
   private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
   private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private ColorMatchResult match;
 
   public ColourWheel() {
     m_colorMatcher.addColorMatch(kBlueTarget);
@@ -73,15 +74,28 @@ public class ColourWheel extends SubsystemBase {
   }
 
   public double confidence() {
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
+    final ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     return match.confidence;
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     this.detectedColor = m_colorSensor.getColor();
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     String colorString;
+    colorString = colourMatch();
+    
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    SmartDashboard.putNumber("Confidence", match.confidence);
+    SmartDashboard.putString("Detected Color", colorString);
+    SmartDashboard.putString("Motor Direction:", motorState);
+  }
+
+public String colourMatch() {
+    String colorString;
+    detectedColor = m_colorSensor.getColor();
+    match = m_colorMatcher.matchClosestColor(detectedColor);
     if (match.color == kBlueTarget) {
       colorString = "Blue";
     } else if (match.color == kRedTarget) {
@@ -93,30 +107,6 @@ public class ColourWheel extends SubsystemBase {
     } else {
       colorString = "Unknown";
     }
-    
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("Confidence", match.confidence);
-    SmartDashboard.putString("Detected Color", colorString);
-    SmartDashboard.putString("Spinner Motor", motorState);
+    return colorString;
   }
-
-public String colourMatch() {
-  String colorString;
-  Color detectedColor = m_colorSensor.getColor();
-  ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-  if (match.color == kBlueTarget) {
-    colorString = "Blue";
-  } else if (match.color == kRedTarget) {
-    colorString = "Red";
-  } else if (match.color == kGreenTarget) {
-    colorString = "Green";
-  } else if (match.color == kYellowTarget) {
-    colorString = "Yellow";
-  } else {
-    colorString = "Unknown";
-  }
-  return colorString;
-}
 }
