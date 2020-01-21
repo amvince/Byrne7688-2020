@@ -17,7 +17,8 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static int CANSPIN = 0;
+    public static final int CANSPIN = 0;
+    public static final int PWMSpin = 0;
 
       // Joystick Constants - XBox Style
     public static final int OI_DRIVER_CONTROLLER = 0;

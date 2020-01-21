@@ -10,8 +10,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -24,6 +27,7 @@ public class ColourWheel extends SubsystemBase {
    */
   // Disabled Motor FOR NOW
   // private final WPI_TalonSRX spinner = new WPI_TalonSRX(Constants.CANSPIN);
+  private final Talon spinner = new Talon(Constants.PWMSpin);
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private Color detectedColor;
@@ -54,7 +58,7 @@ public class ColourWheel extends SubsystemBase {
   }
 
   public void clockwise() {
-    // spinner.set(0.3);
+    spinner.set(0.3);
     motorState = "Clockwise";
   }
 
@@ -63,12 +67,12 @@ public class ColourWheel extends SubsystemBase {
   }
 
   public void cclockwise() {
-    //spinner.set(-0.3);
+    spinner.set(-0.3);
     motorState = "CounterClockwise";
   }
 
   public void stop() {
-    //spinner.set(0);
+    spinner.set(0);
     motorState = "Stopped";
   }
 
