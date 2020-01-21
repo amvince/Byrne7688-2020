@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DisplayColor;
@@ -37,6 +38,10 @@ public class RobotContainer {
   public RobotContainer() {
     
     // Configure the button bindings
+    SmartDashboard.putString("Looking For:", "");
+    SmartDashboard.putString("Currently On:","");
+    SmartDashboard.putString("Starting Colour","");
+    SmartDashboard.putNumber("Spins",0);
 
     configureButtonBindings();
   }
@@ -53,13 +58,13 @@ public class RobotContainer {
     final JoystickButton yellowButton = new JoystickButton(joystick, Constants.OI_BUTTON_Y);
     final JoystickButton blueButton = new JoystickButton(joystick, Constants.OI_BUTTON_B);
     final JoystickButton redButton = new JoystickButton(joystick, Constants.OI_BUTTON_R);
-    final JoystickButton triggerButton = new JoystickButton(joystick, Constants.OI_BUTTON_T);
+    final JoystickButton spinButton = new JoystickButton(joystick, Constants.OI_BUTTON_S);
     
     greenButton.whenPressed(new FindColour(m_colourWheel,"Green"));
     yellowButton.whenPressed(new FindColour(m_colourWheel, "Yellow"));
     blueButton.whenPressed(new FindColour(m_colourWheel, "Blue"));
     redButton.whenPressed(new FindColour(m_colourWheel, "Red"));
-    triggerButton.whenPressed(new spinCounter(m_colourWheel));
+    spinButton.whenPressed(new spinCounter(m_colourWheel));
 
   }
 

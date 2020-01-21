@@ -76,6 +76,10 @@ public class ColourWheel extends SubsystemBase {
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
     return match.confidence;
   }
+
+  public boolean confident() {
+    return (this.confidence()>0.90);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

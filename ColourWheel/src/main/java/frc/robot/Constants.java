@@ -28,5 +28,5 @@ public final class Constants {
     public static final int OI_BUTTON_G = 6;
     public static final int OI_BUTTON_B = 3;
     public static final int OI_BUTTON_Y = 4;
-    public static final int OI_BUTTON_T = 7;
+    public static final int OI_BUTTON_S = 7;
 }

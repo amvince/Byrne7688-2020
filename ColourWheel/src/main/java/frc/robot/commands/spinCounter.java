@@ -21,7 +21,7 @@ public class spinCounter extends CommandBase {
   private String s_initColour, s_prevColour;
 
   
-  private double counter;
+  private double counter=0;
 
   public spinCounter(ColourWheel wheel) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -40,6 +40,8 @@ public class spinCounter extends CommandBase {
     s_initColour = m_wheel.colourMatch();
     s_prevColour = s_initColour;
     SmartDashboard.putString("Starting Colour", s_initColour);
+    SmartDashboard.putNumber("Spins", counter);
+    SmartDashboard.putString("Looking For:", "");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,9 +53,14 @@ public class spinCounter extends CommandBase {
 
     /* This might be the code for a "named" colour counter. */
     String currColour = m_wheel.colourMatch();
-    counter += ((currColour == s_initColour) && (currColour != s_prevColour)) ? 0.5 : 0;
+    if ((currColour == s_initColour) && (currColour != s_prevColour)) {
+      counter += 0.5;
+      
+    }
+      s_prevColour = currColour;
+    
     SmartDashboard.putString("Detected Color", currColour);
-    SmartDashboard.putString("Spins", String.valueOf(counter/2));
+    SmartDashboard.putNumber("Spins", counter);
   }
 
   // Called once the command ends or is interrupted.
