@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DisplayColor;
@@ -27,6 +29,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ColourWheel m_colourWheel = new ColourWheel();
   private final DisplayColor m_autoCommand = new DisplayColor(m_colourWheel);
+  private static final String autonomous1="Display Colour", autonomous2="Spin Wheel";
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
   
   // Joystick Control
   Joystick joystick = new Joystick(Constants.OI_DRIVER_CONTROLLER);
@@ -36,6 +40,10 @@ public class RobotContainer {
    */
   public RobotContainer() {
     
+    m_chooser.setDefaultOption("Default Auto", autonomous1);
+    m_chooser.addOption("Spin Wheel", autonomous2);
+    SmartDashboard.putData(m_chooser);
+
     // Configure the button bindings
 
     configureButtonBindings();
@@ -53,7 +61,7 @@ public class RobotContainer {
     final JoystickButton yellowButton = new JoystickButton(joystick, Constants.OI_BUTTON_Y);
     final JoystickButton blueButton = new JoystickButton(joystick, Constants.OI_BUTTON_B);
     final JoystickButton redButton = new JoystickButton(joystick, Constants.OI_BUTTON_R);
-    final JoystickButton triggerButton = new JoystickButton(joystick, Constants.OI_BUTTON_T);
+    final JoystickButton triggerButton = new JoystickButton(joystick, Constants.OI_BUTTON_S);
     
     greenButton.whenPressed(new FindColour(m_colourWheel,"Green"));
     yellowButton.whenPressed(new FindColour(m_colourWheel, "Yellow"));

@@ -22,15 +22,15 @@ public class FindColour extends CommandBase {
   public FindColour(ColourWheel wheel, String target) {
     s_target = target;
     m_wheel = wheel;
-    SmartDashboard.putString("Looking For:", s_target);
-    System.out.print("Looking For: ");
-    System.out.println(s_target);
     addRequirements(m_wheel);
   }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
       s_current = m_wheel.colourMatch();
+      SmartDashboard.putString("Looking For:", s_target);
+      System.out.print("Looking For: ");
+      System.out.println(s_target);
       foundColour = false;
   }
 
@@ -64,7 +64,7 @@ public class FindColour extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (foundColour) {
+    if (foundColour && m_wheel.confident()) {
       m_wheel.stop();
       System.out.print("Found ");
       System.out.println(s_target);
