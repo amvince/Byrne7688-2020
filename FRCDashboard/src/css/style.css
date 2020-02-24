@@ -177,10 +177,28 @@ body.login #login {
 #wheel-selector p {
 	margin: 10px;
 }
-
+#container {
+	position: relative;
+}
 #climb-status {
+	left: 0px;
 	padding: 10px;
 	border: solid 1px white;
+	width: 48%;
+	
+}
+#wheel-status {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 30px 10px;
+	border: solid 1px white;
+	width: 48%;
+	height: 100%;	
+	float: right;
+}
+#wheel-deploy {
+	background: #0E0;
 }
 #climb-status p {
 	margin: 10px;

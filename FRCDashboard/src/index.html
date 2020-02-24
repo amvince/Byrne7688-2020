@@ -39,10 +39,15 @@
 			<p>Spinner Function: <span id="wheel-action">No Action</span></p>
 		
 		</div>
-        <div id="climb-status">
-            <p>Enable Climb: <input type="checkbox" id="climb-armed"></p>
-            <p id="climb-readout">Lift is NOT armed</p>
-        </div>
+		<div id="container">
+			<div id="climb-status">
+				<p>Enable Climb: <input type="checkbox" id="climb-armed"></p>
+				<p><span id="climb-readout">Lift is NOT armed</span></p>
+			</div>
+			<div id="wheel-status">
+				<p>Spinner: <span id="wheel-deploy">Retracted</span></p>
+			</div>
+		</div>
         <!-- Autonomous selector -->
         <div class="select-container">
             <select id="auto-select">
@@ -50,7 +55,7 @@
                 <!-- This gets populated by JS -->
             </select>
         </div>
-	<p>Dumptruck Position: <input type="checkbox" id="dump"></p>
+	<p>Dumptruck Raised: <input type="checkbox" id="dump"></p>
 
 	<!-- Place a Byrne Creek Logo at the bottom for STYLE. -->
 	<img src="images/first-logo.png" id="byrne_logo">

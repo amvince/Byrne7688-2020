@@ -11,6 +11,7 @@ let ui = {
 	findGreen: document.getElementById('green'),
 	findYellow: document.getElementById('yellow'),
 	wheelAction: document.getElementById('wheel-action'),
+	wheelDeployed: document.getElementById('wheel-deploy'),
 	
 	climb: {
 		armed: document.getElementById('climb-armed'),
@@ -20,20 +21,8 @@ let ui = {
 	dumpToggle: document.getElementById('dump')
 };
 
+
 // Key Listeners
-
-ui.dumpToggle.onclick = function() {
-	NetworkTables.putValue('/SmartDashboard/dumpTruck', ui.dumpToggle.checked);
-}
-
-NetworkTables.addKeyListener('/SmartDashboard/dumpTruck', (key, value) => {
-	if (value) {
-		ui.dump.style.transform = "rotate(0deg)";
-	} else {
-		ui.dump.style.transform = "rotate(-30deg)";
-	}
-});
-
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
     // We assume here that value is an integer representing the number of seconds left.
@@ -68,7 +57,7 @@ ui.autoSelect.onchange = function() {
 };
 
 
-//Hoping for a Colour Wheel changed
+// Colour Wheel Selection Code
 ui.spin.onclick = function() {
 	ui.wheelAction.innerHTML="Spin 3 Times";
 	NetworkTables.putValue('/SmartDashboard/wheel_function', this.value);
@@ -89,7 +78,19 @@ ui.findYellow.onclick = function() {
 	ui.wheelAction.innerHTML="Finding " + this.value;
 	NetworkTables.putValue('/SmartDashboard/wheel_function', this.value);
 }
+// Listen for "Spinner Deployed" and report.
+NetworkTables.addKeyListener('/SmartDashboard/wheel_deployed', (key, value) => {
+	if (value) {
+		var message = "Deployed";
+		ui.wheelDeployed.style.background="#E00";
+	} else {
+		var message = "Retracted";
+		ui.wheelDeployed.style.background="#0E0";
+	}
+	ui.wheelDeployed.innerHTML = message;
+});
 
+// Lifting Mechanism Arming
 ui.climb.armed.onclick = function() {
 	NetworkTables.putValue('/SmartDashboard/climb', ui.climb.armed.checked);
 }
@@ -102,11 +103,21 @@ NetworkTables.addKeyListener('/SmartDashboard/climb', (key, value) => {
 		var message = "Lift is NOT armed";
 		ui.climb.readout.style.background="#000";
 	}
-	// var message = (value) ? "LIFT IS ARMED" : "Lift is NOT armed";
 	ui.climb.readout.innerHTML = message;
 });
 
+// DumpTruck Lifter Code (Visual SVG update, and "test" checkbox
+ui.dumpToggle.onclick = function() {
+	NetworkTables.putValue('/SmartDashboard/dumpTruck', ui.dumpToggle.checked);
+}
 
+NetworkTables.addKeyListener('/SmartDashboard/dumpTruck', (key, value) => {
+	if (value) {
+		ui.dump.style.transform = "rotate(0deg)";
+	} else {
+		ui.dump.style.transform = "rotate(-30deg)";
+	}
+});
 addEventListener('error',(ev)=>{
     ipc.send('windowError',{mesg:ev.message,file:ev.filename,lineNumber:ev.lineno})
 })
