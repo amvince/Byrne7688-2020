@@ -7,35 +7,55 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColourWheel;
 
-public class DisplayColor extends CommandBase {
+public class spinFunction extends CommandBase {
   /**
-   * Creates a new DisplayColor.
+   * Creates a new spinFunction.
    */
-  private ColourWheel m_wheel;
-
-  public DisplayColor(ColourWheel wheel) {
+  private final ColourWheel m_wheel;
+  private final NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  private final NetworkTable table = inst.getTable("SmartDashboard");
+  
+  public spinFunction(ColourWheel wheel) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_wheel = wheel;
-    addRequirements(m_wheel);
+    addRequirements(wheel);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Read network table for wheel
+    // conditional command based on network table command.
+    String cmd = table.getEntry("wheel_function").getString("spin");
+    switch(cmd) {
+      case "red":
+        new FindColour(this.m_wheel, "red");
+        break;
+      case "blue":
+        new FindColour(this.m_wheel, "blue");
+        break;
+      case "green":
+        new FindColour(this.m_wheel, "green");
+        break;
+      case "yellow":
+        new FindColour(this.m_wheel, "yellow");
+        break;
+      case "spin":
+      default:
+        new spinCounter(this.m_wheel);
+        break;
+    }
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.print("Red: ");
-    System.out.println(m_wheel.red());
-    System.out.print("Blue: ");
-    System.out.println(m_wheel.blue());
-    System.out.print("Green: ");
-    System.out.println(m_wheel.green());
   }
 
   // Called once the command ends or is interrupted.
@@ -46,6 +66,6 @@ public class DisplayColor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

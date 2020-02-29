@@ -7,40 +7,44 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ColourWheel;
+import frc.robot.subsystems.DumpTruck;
 
-public class DisplayColor extends CommandBase {
+public class Extend extends CommandBase {
   /**
-   * Creates a new DisplayColor.
+   * Creates a new Extend.
    */
-  private ColourWheel m_wheel;
+  private DumpTruck dumptruck;
+  private final NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  private final NetworkTable table = inst.getTable("SmartDashboard");
 
-  public DisplayColor(ColourWheel wheel) {
+  public Extend(DumpTruck dumptruck) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_wheel = wheel;
-    addRequirements(m_wheel);
+    this.dumptruck = dumptruck;
+    addRequirements(dumptruck);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    dumptruck.extend();
+    System.out.println("Lifting Duptruck");
+    table.getEntry("dumpTruck").setBoolean(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.print("Red: ");
-    System.out.println(m_wheel.red());
-    System.out.print("Blue: ");
-    System.out.println(m_wheel.blue());
-    System.out.print("Green: ");
-    System.out.println(m_wheel.green());
+    System.out.println("Dumptruck is lifted");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    dumptruck.retract();
+    System.out.println("Retracting Dumptruck");
   }
 
   // Returns true when the command should end.

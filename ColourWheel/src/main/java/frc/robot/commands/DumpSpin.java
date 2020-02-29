@@ -8,39 +8,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ColourWheel;
+import frc.robot.subsystems.DumpTruck;
 
-public class DisplayColor extends CommandBase {
+public class DumpSpin extends CommandBase {
   /**
-   * Creates a new DisplayColor.
+   * Creates a new DumpSpin.
    */
-  private ColourWheel m_wheel;
-
-  public DisplayColor(ColourWheel wheel) {
+  private double speed;
+  private DumpTruck dumptruck;
+  public DumpSpin(DumpTruck dumptruck, double speed ) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_wheel = wheel;
-    addRequirements(m_wheel);
+   this.dumptruck = dumptruck;
+   this.speed = speed;
+   addRequirements(dumptruck); 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    dumptruck.spinBelt(this.speed);
+    System.out.println("Dumptruck has started to spin");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.print("Red: ");
-    System.out.println(m_wheel.red());
-    System.out.print("Blue: ");
-    System.out.println(m_wheel.blue());
-    System.out.print("Green: ");
-    System.out.println(m_wheel.green());
+    System.out.println("Dumptruck is spinning");
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.speed=0.0;
+    dumptruck.stop();
+    System.out.println("Dumptruck has stopped");
   }
 
   // Returns true when the command should end.
