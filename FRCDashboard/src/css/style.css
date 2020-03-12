@@ -191,12 +191,15 @@ body.login #login {
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	padding: 30px 10px;
 	border: solid 1px white;
 	width: 48%;
 	height: 100%;	
 	float: right;
 }
+#wheel-status * {
+	padding: 10px 10px;
+}
+
 #wheel-deploy {
 	background: #0E0;
 }

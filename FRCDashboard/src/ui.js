@@ -12,6 +12,7 @@ let ui = {
 	findYellow: document.getElementById('yellow'),
 	wheelAction: document.getElementById('wheel-action'),
 	wheelDeployed: document.getElementById('wheel-deploy'),
+	wheelColour: document.getElementById('wheel-colour'),
 	
 	climb: {
 		armed: document.getElementById('climb-armed'),
@@ -78,6 +79,13 @@ ui.findYellow.onclick = function() {
 	ui.wheelAction.innerHTML="Finding " + this.value;
 	NetworkTables.putValue('/SmartDashboard/wheel_function', this.value);
 }
+
+NetworkTables.addKeyListener('/SmartDashboard/wheel_colour', (key, value) => {
+	var message = value;
+	ui.wheelColour.innerHTML=message;
+	ui.wheelColour.style.background=message;
+});
+
 // Listen for "Spinner Deployed" and report.
 NetworkTables.addKeyListener('/SmartDashboard/wheel_deployed', (key, value) => {
 	if (value) {
