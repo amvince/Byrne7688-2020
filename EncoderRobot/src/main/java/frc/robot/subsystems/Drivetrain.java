@@ -7,9 +7,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -47,8 +45,7 @@ public class Drivetrain extends SubsystemBase {
 
   public void ArcadeDrive(double speed, double dir) {
     m_drive.arcadeDrive(speed, dir);
-    System.out.println("Speed: "+speed);
-    // System.out.println("Distance: "+getDistance());
+    System.out.println("Distance: "+getDistance());
   }
 
   public void tankDrive(double lSpeed, double rSpeed) {
